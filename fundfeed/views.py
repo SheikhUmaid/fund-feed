@@ -65,3 +65,28 @@ class PostCreateView(generics.CreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [permissions.AllowAny, IsDeveloperUploader]
     
+    
+    
+from rest_framework import generics, permissions
+from rest_framework.pagination import PageNumberPagination
+
+from .models import Post
+from .serializers import PostSerializer
+import random
+
+
+class RandomVideoPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = "page_size"
+    max_page_size = 50
+
+
+class RandomVideoListView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    pagination_class = RandomVideoPagination
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        queryset = list(Post.objects.all())
+        random.shuffle(queryset)  # random ordering
+        return queryset

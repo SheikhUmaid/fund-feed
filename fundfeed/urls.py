@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PublicProfileCreateView, ProfileView
+from .views import PublicProfileCreateView, ProfileView, PostCreateView, RandomVideoListView
 
 urlpatterns = [
 # {
@@ -12,4 +12,6 @@ urlpatterns = [
 # }
     path("profile/create/", PublicProfileCreateView.as_view(), name="profile-create"),
     path("profile/<int:pk>/", ProfileView.as_view(), name="profile-detail"),
+    path("posts/create/", PostCreateView.as_view(), name="post-create"),
+    path("posts/random/", RandomVideoListView.as_view(), name="random-videos"),
 ]
